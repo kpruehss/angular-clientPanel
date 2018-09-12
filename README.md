@@ -1,5 +1,14 @@
 # AngularClientPanel
 
+## To be implemented:
+
+- Firebase (Firestore)
+- ng-bootstrap components
+
+Deployment details will be added later
+
+---
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.1.5.
 
 ## Development server
