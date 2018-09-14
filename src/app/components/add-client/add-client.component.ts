@@ -4,6 +4,7 @@ import { ClientService } from '../../services/client.service';
 
 import { Client } from '../../models/Client';
 import { Router } from '@angular/router';
+import { SettingsService } from '../../services/settings.service';
 
 @Component({
   selector: 'app-add-client',
@@ -18,8 +19,8 @@ export class AddClientComponent implements OnInit {
     phone: '',
     balance: 0,
   };
+  disableBalanceOnAdd: boolean;
 
-  disableBalanceOnAdd = true;
   @ViewChild('clientForm')
   form: any;
 
@@ -27,9 +28,12 @@ export class AddClientComponent implements OnInit {
     private flashMessage: FlashMessagesService,
     private clientService: ClientService,
     private router: Router,
+    private settingsService: SettingsService,
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.disableBalanceOnAdd = this.settingsService.getSettings().disableBalanceOnAdd;
+  }
 
   onSubmit({ value, valid }: { value: Client; valid: boolean }) {
     if (this.disableBalanceOnAdd) {
