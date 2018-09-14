@@ -22,6 +22,7 @@ export class ClientsComponent implements OnInit {
 
   getTotalOwed() {
     this.totalOwed = this.clients.reduce((total, client) => {
+      // ! client.balance is treated as a string and requires type casting!
       return total + parseFloat(client.balance.toString());
     }, 0);
   }
