@@ -9,7 +9,7 @@ export class RegisterGuard implements CanActivate {
     private settingsService: SettingsService,
   ) {}
 
-  canActivate(): Observable<boolean> {
+  canActivate(): boolean {
     if (this.settingsService.getSettings().allowRegistration) {
       return true;
     } else {
