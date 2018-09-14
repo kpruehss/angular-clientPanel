@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ClientService } from '../../services/client.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { FlashMessagesService } from 'angular2-flash-messages';
+import { Client } from '../../models/Client';
 
 @Component({
   selector: 'app-client-details',
@@ -6,7 +10,31 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./client-details.component.css'],
 })
 export class ClientDetailsComponent implements OnInit {
-  constructor() {}
+  id: string;
+  client: Client;
+  hasBalance = false;
+  showBalanceUpdateInput = false;
 
-  ngOnInit() {}
+  constructor(
+    private clientService: ClientService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private flashMessage: FlashMessagesService,
+  ) {}
+
+  ngOnInit() {
+    // Get ID from url
+    this.id = this.route.snapshot.params['id'];
+
+    // Get client
+    this.clientService.getClient(this.id).subscribe(client => {
+      if (client != null) {
+        if (client.balance > 0) {
+          this.hasBalance = true;
+        }
+      }
+
+      this.client = client;
+    });
+  }
 }
